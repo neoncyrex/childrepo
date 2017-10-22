@@ -1,6 +1,5 @@
 #!groovy
 def rev 
-def repodir
 node('jenkins') {
   stage('Checkout') {
     checkout scm
@@ -31,7 +30,7 @@ node('jenkins') {
   }
 
   stage('Publish') {
-	def repo='git@github.com:neoncyrex/example.git'
+	def repo = 'git@github.com:neoncyrex/example.git'
 	def repodir = getrepodir(repo)
 	echo "$repodir"
 	sh "mkdir -p ../build${rev}"
