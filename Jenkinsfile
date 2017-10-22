@@ -29,6 +29,7 @@ node('jenkins') {
   }
 
   stage('Publish') {
+	sh "pwd"
 	sh "cd ..; git clone https://github.com/neoncyrex/example.git"
 	sh "ls" 
   }
