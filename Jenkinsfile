@@ -1,11 +1,12 @@
 #!groovy
 def rev 
+def repodir
 node('jenkins') {
   stage('Checkout') {
     checkout scm
     rev = "$BUILD_NUMBER"
     repodir = getrepodir('git@github.com:neoncyrex/example.git')
-    echo ${repodir}
+    echo "${repodir}"
   }
 
   stage('Syntax') {
