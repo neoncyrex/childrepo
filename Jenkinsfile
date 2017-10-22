@@ -15,7 +15,7 @@ node('jenkins') {
   }
 
   stage('Deploy') {
-    sh "tru"
+    sh "true"
   }
  
   stage('Test') {
