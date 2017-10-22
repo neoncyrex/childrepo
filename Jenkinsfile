@@ -4,6 +4,7 @@ node('jenkins') {
   stage('Checkout') {
     checkout scm
     rev = "$BUILD_NUMBER"
+    repodir = getrepodir('git@github.com:neoncyrex/example.git')
   }
 
   stage('Syntax') {
@@ -39,8 +40,9 @@ node('jenkins') {
   }
 }
 
-def push_repo_to_subdirectory(dstrepo) {
-	def matcher = dstrepo =~ '.+/(.+)\.git'
-	matcher ? matcher[0][1] : null
+def getrepodir(repo) {     
+  def matcher = repo =~ '/([^/]+).git'     
+  matcher ? matcher[0][1] : null 
 }
+
 
