@@ -5,6 +5,7 @@ node('jenkins') {
     checkout scm
     rev = "$BUILD_NUMBER"
     repodir = getrepodir('git@github.com:neoncyrex/example.git')
+    echo ${repodir}
   }
 
   stage('Syntax') {
