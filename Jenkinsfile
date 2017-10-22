@@ -19,6 +19,7 @@ node('jenkins') {
   }
  
   stage('Test') {
+    push_repo_to_subdirectory("git@github.com:neoncyrex/example.git")
     sh "true"
   }
 
@@ -30,11 +31,16 @@ node('jenkins') {
 
   stage('Publish') {
 	sh "mkdir -p ../build${rev}"
-	sh "cd ../build${rev}; git clone git@github.com:neoncyrex/example.git"
-	sh "cd ../build${rev}/example; git checkout -b build${rev}"
-	sh "cp -r * ../build${rev}/example/vsrx_build_automation"
-        sh "cd ../build${rev}/example; git add .; git commit -m 'Jenkins build $rev';git push origin build${rev}"
-	sh "rm -rf ../build${rev}/example"
+	sh "cd ../builds/build${rev}; git clone git@github.com:neoncyrex/example.git"
+	sh "cd ../builds/build${rev}/example; git checkout -b jenkins"
+	sh "cp -r * ../builds/build${rev}/example/vsrx_build_automation"
+        sh "cd ../builds/build${rev}/example; git add .; git commit -m 'Jenkins build $rev';git push origin jenkins"
+	sh "rm -rf ../builds/build${rev}/example"
   }
+}
+
+def push_repo_to_subdirectory(dstrepo) {
+	def matcher = dstrepo =~ '.+\/(.+)\.git'
+	sh "echo ${matcher}"
 }
 
