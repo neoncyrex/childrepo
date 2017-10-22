@@ -31,13 +31,12 @@ node('jenkins') {
   stage('Publish') {
 	def repo = 'git@github.com:neoncyrex/example.git'
 	def repodir = getrepodir(repo)
-	echo "$repodir"
-	sh "mkdir -p ../build${rev}"
-	sh "cd ../builds/build${rev}; git clone git@github.com:neoncyrex/example.git"
-	sh "cd ../builds/build${rev}/example; git checkout -b jenkins"
-	sh "cp -r * ../builds/build${rev}/example/vsrx_build_automation"
-        sh "cd ../builds/build${rev}/example; git add .; git commit -m 'Jenkins build $rev';git push origin jenkins"
-	sh "rm -rf ../builds/build${rev}/example"
+	sh "mkdir -p ..builds/build${rev}"
+	sh "cd ../builds/build${rev}; git clone ${repo}"
+	sh "cd ../builds/build${rev}/${repodir}; git checkout -b jenkins"
+	sh "cp -r * ../builds/build${rev}/${repodir}/vsrx_build_automation"
+        sh "cd ../builds/build${rev}/${repodir}; git add .; git commit -m 'Jenkins build $rev';git push origin jenkins"
+	sh "rm -rf ../builds/build${rev}/${repodir}"
   }
 }
 
