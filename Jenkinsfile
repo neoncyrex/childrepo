@@ -40,7 +40,7 @@ node('jenkins') {
 }
 
 def push_repo_to_subdirectory(dstrepo) {
-	def matcher = dstrepo =~ '.+\/(.+)\.git'
+	def matcher = dstrepo =~ '.+/(.+)\.git'
 	matcher ? matcher[0][1] : null
 }
 
