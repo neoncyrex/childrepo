@@ -5,8 +5,6 @@ node('jenkins') {
   stage('Checkout') {
     checkout scm
     rev = "$BUILD_NUMBER"
-    repodir = getrepodir('git@github.com:neoncyrex/example.git')
-    echo "${repodir}"
   }
 
   stage('Syntax') {
@@ -33,6 +31,9 @@ node('jenkins') {
   }
 
   stage('Publish') {
+	def repo='git@github.com:neoncyrex/example.git'
+	def repodir = getrepodir(repo)
+	echo "$repodir"
 	sh "mkdir -p ../build${rev}"
 	sh "cd ../builds/build${rev}; git clone git@github.com:neoncyrex/example.git"
 	sh "cd ../builds/build${rev}/example; git checkout -b jenkins"
