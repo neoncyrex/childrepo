@@ -30,19 +30,19 @@ node('jenkins') {
 
   stage('Publish') {
 	def repo = 'git@github.com:neoncyrex/example.git'
-        publish_repo_to_subdirectory(repo,'vsrx_build_automation','jenkins')
+        publish_repo_to_subdirectory(repo,'vsrx_build_automation','jenkins', rev)
   }
 }
 
 
-def publish_repo_to_subdirectory(destrepo,subdirectory,branch) {
+def publish_repo_to_subdirectory(destrepo,subdirectory,branch,buildnumber) {
    def repodir = getrepodir(destrepo)
-   sh "mkdir -p ../builds/build${rev}"
-   sh "cd ../builds/build${rev}; git clone ${destrepo}"
-   sh "cd ../builds/build${rev}/${repodir}; git checkout -b ${branch}"
-   sh "cp -r * ../builds/build${rev}/${repodir}/${subdirectory}"
-   sh "cd ../builds/build${rev}/${repodir}; git add .; git commit -m 'Jenkins build $rev';git push origin ${branch}"
-   sh "rm -rf ../builds/build${rev}/${repodir}"
+   sh "mkdir -p ../builds/build${buildnumber}"
+   sh "cd ../builds/build${buildnumber}; git clone ${destrepo}"
+   sh "cd ../builds/build${buildnumber}/${repodir}; git checkout -b ${branch}"
+   sh "cp -r * ../builds/build${buildnumber}/${repodir}/${subdirectory}"
+   sh "cd ../builds/build${buildnumber}/${repodir}; git add .; git commit -m 'Jenkins build $buildnumber';git push origin ${branch}"
+   sh "rm -rf ../builds/build${buildnumber}/${repodir}"
 }
 
 def getrepodir(repo) {
