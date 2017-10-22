@@ -29,7 +29,8 @@ node('jenkins') {
   }
 
   stage('Publish') {
-	sh "git clone https://github.com/neoncyrex/example.git"
+	sh "cd ..; git clone https://github.com/neoncyrex/example.git"
+	sh "ls" 
   }
 }
 
