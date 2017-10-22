@@ -4,6 +4,8 @@ node('jenkins') {
   stage('Checkout') {
     checkout scm
     rev  = "$BUILD_NUMBER"
+    sh "ls -l"
+    sh "ls -l ../"
   }
 
   stage('Syntax') {
