@@ -3,9 +3,7 @@ def rev
 node('jenkins') {
   stage('Checkout') {
     checkout scm
-    rev  = "$BUILD_NUMBER"
-    sh "ls -l"
-    sh "ls -l ../"
+    rev = "$BUILD_NUMBER"
   }
 
   stage('Syntax') {
@@ -31,7 +29,7 @@ node('jenkins') {
   }
 
   stage('Publish') {
-
+	sh "git clone https://github.com/neoncyrex/example.git"
   }
 }
 
