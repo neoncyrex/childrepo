@@ -34,10 +34,6 @@ node('jenkins') {
   }
 }
 
-def getrepodir(repo) {     
-   def matcher = repo =~ '/([^/]+).git'     
-   matcher ? matcher[0][1] : null 
-}
 
 def publish_repo_to_subdirectory(destrepo,subdirectory,branch) {
    def repodir = getrepodir(destrepo)
@@ -47,6 +43,11 @@ def publish_repo_to_subdirectory(destrepo,subdirectory,branch) {
    sh "cp -r * ../builds/build${rev}/${repodir}/${subdirectory}"
    sh "cd ../builds/build${rev}/${repodir}; git add .; git commit -m 'Jenkins build $rev';git push origin ${branch}"
    sh "rm -rf ../builds/build${rev}/${repodir}"
+}
+
+def getrepodir(repo) {
+   def matcher = repo =~ '/([^/]+).git'
+   matcher ? matcher[0][1] : null
 }
 
 
