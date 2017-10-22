@@ -29,9 +29,10 @@ node('jenkins') {
   }
 
   stage('Publish') {
-	sh "pwd"
-	sh "cd ..; git clone https://github.com/neoncyrex/example.git"
-	sh "ls" 
+	sh "mkdir -p ../build${rev}"
+	sh "cd ../build${rev}; git clone https://github.com/neoncyrex/example.git"
+	sh "cp -r * ../build${rev}/vsrx_build_automation"
+        sh "cd ../build${rev}; git add .; git commit -m 'Jenkins build $rev'; git push origin master "
   }
 }
 
