@@ -19,7 +19,6 @@ node('jenkins') {
   }
  
   stage('Test') {
-    push_repo_to_subdirectory("git@github.com:neoncyrex/example.git")
     sh "true"
   }
 
